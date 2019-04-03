@@ -463,7 +463,7 @@ class FileLoader {
 	 * @returns {Promise.<Object>} Returns promise that will be resolved with response data. Promise will be rejected if error
 	 * occurs or if read process is aborted.
 	 */
-	upload() {
+	upload(params) {
 		if ( this.status != 'idle' ) {
 			throw new CKEditorError( 'filerepository-upload-wrong-status: You cannot call upload if the status is different than idle.' );
 		}
@@ -471,7 +471,7 @@ class FileLoader {
 		this.status = 'uploading';
 
 		return this._filePromiseWrapper.promise
-			.then( () => this._adapter.upload() )
+			.then(() => this._adapter.upload(params) )
 			.then( data => {
 				this.uploadResponse = data;
 				this.status = 'idle';
